@@ -126,7 +126,6 @@ $(document).ready(function () {
 
 });
 
-
 //for questions we can; 
 // create an array of all possible answers
 // add the correct answers to an array, add the wrong answers to an array
