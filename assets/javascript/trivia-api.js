@@ -126,9 +126,9 @@ $(document).ready(function () {
 
 });
 
-
 //for questions we can; 
 // create an array of all possible answers
 // add the correct answers to an array, add the wrong answers to an array
 // create buttons for each answer and randomize
 // create a submit button that checks your answers at the end and totals your points and displays it to the HTML
+
