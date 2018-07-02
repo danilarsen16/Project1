@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
   enableButtons();
   if (!window.navigator || !window.navigator.geolocation) {
     alert('Your browser doesn\'t support geolocation!');
@@ -119,35 +120,87 @@ $(document).ready(function () {
         const position = { lat, lng };
         const title = barName;
         const marker = new google.maps.Marker({ map, position, title });
+        
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.set("directions", null)
+        directionsDisplay.setMap(map);
+
+
+        function calcRoute(directionsService, directionsDisplay, pointA, pointB) {
+          console.log("calculate route: ", arguments)
+          var start = pointA;
+          var end = pointB;
+          var request = {
+            "origin": start,
+            "destination": end,
+            travelMode: google.maps.TravelMode.DRIVING
+          };
+          directionsService.route(request, function (result, status) {
+            console.log("Got a response from DS", status, result)
+
+            if (status === 'OK') {
+              directionsDisplay.setDirections(result);
+            }
+          })
+        }
+
+        $("document").on('click', "#getDirections", calcRoute(directionsService, directionsDisplay,
+          new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(lat, lng)));
+
 
         google.maps.event.addListener(marker, 'click', function () {
           var contentString = '<div id="content">' + '<div id="siteNotice">' + '</div>'
             + '<h1 id="firstHeading" class="firstHeading">' + title + '</h1>' +
             '<div id="bodyContent">' + '<p>' + title + "'s nearest address is " + formatted_address + "</p>" +
-            '<p>' + title + "'s rating is : " + rating + '</p>' + '</div></div>';
+            '<p>' + title + "'s rating is : " + rating + '</p>' + '</div><button id="getDirections>Get Directions!</button>"</div>';
 
           var infowindow = new google.maps.InfoWindow({
             'content': contentString
           });
-
           infowindow.open(map, this);
-})
 
-          window.markers.push(marker);
-        
+        })
+
+        window.markers.push(marker);
+
       })
     })
   }
 
+  // directionsService.route(request, function (response, status) {
+  //   if (status == google.maps.DirectionsStatus.OK) {
+  //     directionsDisplay.setDirections(response);
+  //   }
 
 
 
-  function enableButtons () {
+  // function calcRoute() {
+  //   var selectedMode = document.getElementById('mode').value;
+  //   var request = {
+  //       origin: haight, //(position?)
+  //       destination: marker selected by user ///(clicked on marker off map)
+  //add "directions" to click window
+  //       // Note that Javascript allows us to access the constant
+  //       // using square brackets and a string value as its
+  //       // "property."
+  //       travelMode: google.maps.TravelMode[selectedMode]
+  //   };
+  //   directionsService.route(request, function(response, status) {
+  //     if (status == 'OK') {
+  //       directionsDisplay.setDirections(response);
+  //     }
+  //   });
+  // } 
+
+
+
+  function enableButtons() {
     const $geolocateButton = document.getElementById('geolocation-button');
     const $watchButton = document.getElementById('watch-button');
     const $clearWatchButton = document.getElementById('clear-watch-button');
     const $showNearbyButton = document.getElementById('show-nearby-button');
-
+    /// create button for directions
     $geolocateButton.disabled = false;
     $watchButton.disabled = false;
     $clearWatchButton.disabled = false;
@@ -156,14 +209,14 @@ $(document).ready(function () {
     console.log('Google Maps API loaded');
   }
 
-    const $geolocateButton = document.getElementById('geolocation-button');
-    const $watchButton = document.getElementById('watch-button');
-    const $clearWatchButton = document.getElementById('clear-watch-button');
-    const $showNearbyButton = document.getElementById('show-nearby-button');
-
-    $geolocateButton.addEventListener('click', geolocate);
-    $watchButton.addEventListener('click', watchLocation);
-    $clearWatchButton.addEventListener('click', clearWatch);
-    $showNearbyButton.addEventListener('click', showNearbyBars);
+  const $geolocateButton = document.getElementById('geolocation-button');
+  const $watchButton = document.getElementById('watch-button');
+  const $clearWatchButton = document.getElementById('clear-watch-button');
+  const $showNearbyButton = document.getElementById('show-nearby-button');
+  ///create button for directions
+  $geolocateButton.addEventListener('click', geolocate);
+  $watchButton.addEventListener('click', watchLocation);
+  $clearWatchButton.addEventListener('click', clearWatch);
+  $showNearbyButton.addEventListener('click', showNearbyBars);
 
 })
