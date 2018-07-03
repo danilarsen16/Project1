@@ -96,17 +96,15 @@ h3 {
 
 
 nav {
-  float: right;
   margin-top: 25px;
+  height: 50px;
+  width: 100%;
 }
-
-
 
 
 nav a {
   border-left: 0 none;
-  color: black;
-  background: lightgrey;
+  color: white;
   margin: 10px;
 }
 
@@ -168,7 +166,6 @@ h3, h2 {
 
 .beerMe {
   color: black;  
-  font-family: ;
 }
 
 .column {
@@ -198,64 +195,68 @@ font-family: Galada, cursive;
 /* Pics on Top */
 .containerPics {
   float: left;
-  height: auto;
 }
 
 
-/* Navbar whole page*/
+
+
+
+
+
+
+
+
+/* Full Page Navbar */
+
 .overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0, 0.9);
-    overflow-x: hidden;
-    transition: 0.5s;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
 }
 
 .overlay-content {
-    position: relative;
-    top: 25%;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
 }
 
 .overlay a {
-    padding: 8px;
-    text-decoration: none;
-    font-size: 36px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
 }
 
 .overlay a:hover, .overlay a:focus {
-    color: #f1f1f1;
+  color: #f1f1f1;
 }
 
 .overlay .closebtn {
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px;
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
 }
 
 @media screen and (max-height: 450px) {
-  .overlay a {
-    font-size: 20px;
-  padding-left: 100px;
+.overlay a {font-size: 20px}
+.overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
 }
 
-  .overlay .closebtn {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
-  }
-
-
-
+.ourMenu {
+width: 5000px}
 }
