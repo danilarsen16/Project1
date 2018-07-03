@@ -8,14 +8,6 @@ let chosenAnswer = "";
 // function to add new users name/score
 function listUsers() {
     $("#playerNames").empty();
-<<<<<<< HEAD
-    userNames.forEach(user => {
-
-        let newPlayer = $("<p>");
-        newPlayer.append(`${user.name}'s score: ${user.score}`);
-        $("#playerNames").append(newPlayer);
-    })
-=======
         userNames.forEach(user => {
             
             let newPlayer = $("<p>");
@@ -23,7 +15,6 @@ function listUsers() {
             newPlayer.append(`${user.name}'s score: ${user.score}`);
             $("#playerNames").append(newPlayer);
         })
->>>>>>> 1a71d9275de3bdc62b8dd6ab689b84489ad48907
 }
 
 // shuffle function
