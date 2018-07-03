@@ -59,7 +59,7 @@ $(document).ready(function () {
 
     startRound();
 
-    $("#nextPlayer").click(function(event){
+    $("#nextPlayer").click(function (event) {
         event.preventDefault();
         $("#answerText").empty();
         $("#questionText").empty();
@@ -122,75 +122,77 @@ $(document).ready(function () {
             })
 
 
-            }) // end of click function
-            // }) // end of for loop
-        }) // end of then function
-    }) // end of ajax
-    $("#seeResults").click(function (event) {
-        event.preventDefault();
-        userNames.forEach(user => {
-            let newPlayer = $("<p>");
-            newPlayer.attr("id", $("#nameSet").val());
-            newPlayer.append(`${user.name}'s score: ${user.score}`);
-            $("#playerNames").append(newPlayer);
+        }) // end of click function
+
+
+        $("#seeResults").click(function (event) {
+            event.preventDefault();
+            userNames.forEach(user => {
+                let newPlayer = $("<p>");
+                newPlayer.attr("id", $("#nameSet").val());
+                newPlayer.append(`${user.name}'s score: ${user.score}`);
+                $("#playerNames").append(newPlayer);
+            })
+
+            console.log();
+
+
+
         })
 
-        console.log();
 
- 
+        $("#nextQuestion").click(function (event) {
+            event.preventDefault();
+            $("#questionText").html("");
+            $("#answerText").empty();
+            i++;
+            currentAnswerArray = [];
+            console.log(currentAnswerArray);
+            console.log(i);
+            currentAnswerArray.push(array[i].correct_answer);
+            currentAnswerArray.push(array[i].incorrect_answers[0]);
+            currentAnswerArray.push(array[i].incorrect_answers[1]);
+            currentAnswerArray.push(array[i].incorrect_answers[2]);
+            console.log(currentAnswerArray);
+            shuffle(currentAnswerArray);
+            currentAnswerArray.forEach(answers => {
+                let answerButtons = $("<button>");
+                answerButtons.addClass("btn btn-info btn-lg btn-block")
+                answerButtons.attr("type", "button");
+                answerButtons.attr("id", answers);
+                answerButtons.html(answers);
+                $("#answerText").append(answerButtons);
+            })
 
-    })
+            $("#checkAnswer").show();
+            $("#questionText").html(array[i].question);
+        })
 
+        $(document).on("click", ".btn-info", function () {
+            chosenAnswer = $(this).attr("id");
+            console.log(this);
+            console.log(chosenAnswer);
+        })
 
-                $("#nextQuestion").click(function (event) {
-                    event.preventDefault();
-                    $("#questionText").html("");
-                    $("#answerText").empty();
-                    i++;
-                    currentAnswerArray = [];
-                    console.log(currentAnswerArray);
-                    console.log(i);
-                    currentAnswerArray.push(array[i].correct_answer);
-                    currentAnswerArray.push(array[i].incorrect_answers[0]);
-                    currentAnswerArray.push(array[i].incorrect_answers[1]);
-                    currentAnswerArray.push(array[i].incorrect_answers[2]);
-                    console.log(currentAnswerArray);
-                    shuffle(currentAnswerArray);
-                    currentAnswerArray.forEach(answers => {
-                        let answerButtons = $("<button>");
-                        answerButtons.addClass("btn btn-info btn-lg btn-block")
-                        answerButtons.attr("type", "button");
-                        answerButtons.attr("id", answers);
-                        answerButtons.html(answers);
-                        $("#answerText").append(answerButtons);
-                    })
+        $("#checkAnswer").click(function () {
+            var found = false;
+            for (var k = 0; k < correctAnswerArray.length; k++) {
+                if (chosenAnswer == correctAnswerArray[k]) {
+                    found = true;
+                    userNames[j].score++
+                    break;
+                }
+            }
 
-                    $("#checkAnswer").show();
-                    $("#questionText").html(array[i].question);
-                })
+            console.log(userNames[j].score);
+            console.log(userNames);
+            questionDisplay();
 
-                $(document).on("click", ".btn-info", function () {
-                    chosenAnswer = $(this).attr("id");
-                    console.log(this);
-                    console.log(chosenAnswer);
-                })
+            $(".btn-secondary").click(function () {
+                chosenAnswer = $(this).attr("id");
+                console.log(chosenAnswer);
+            })
 
-                $("#checkAnswer").click(function() {
-                    var found = false;
-                    for (var k = 0; k < correctAnswerArray.length; k++) {
-                        if (chosenAnswer == correctAnswerArray[k]) {
-                        found = true;
-                        userNames[j].score++
-                        break;
-                        }
-                    }
-                    
-                    console.log(userNames[j].score);
-                    console.log(userNames);
-                    questionDisplay();
-                    
-                $(".btn-secondary").click(function() {
-                    chosenAnswer = $(this).attr("id");
-                    console.log(chosenAnswer);
+        })
+    }
 })
-
