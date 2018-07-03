@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="trivia.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
@@ -20,7 +21,7 @@
 <body>
     <div class="page-header">
         <h1 id="currentUserName"></h1>
-        <h1 id"currentUserScore"></h1>
+        <h1 id "currentUserScore"></h1>
         <h1 id="progressBar"></h1>
     </div>
 
@@ -38,33 +39,34 @@
         </div>
     </div>
 
-
-    <div>
-        <div class="row">
-            <a href="#" class="btn btn-block" id="nextPlayer">Next Player</a>
-            <div class="col-md-12">
-                <div class="card" id="question-card " style="width: 18rem;">
-                    <div class="card-body" id="answer-body">
-                        <h5 class="card-title">Question:
-                            <span id="questionText"></span>
-                        </h5>
+    <div class="container">
+        <div>
+            <div class="row">
+                <a href="#" class="btn btn-block" id="nextPlayer">Next Player</a>
+                <div class="col-md-12">
+                    <div class="card" id="question-card " style="width: 18rem;">
+                        <div class="card-body" id="answer-body">
+                            <h5 class="card-title">Question:
+                                <span id="questionText"></span>
+                            </h5>
+                        </div>
                     </div>
+                    <p class="card-text">Answers:
+                        <br>
+                        <span id="answerText"></span>
+                        <button type="button" class="btn btn-info btn-lg btn-block" id="answer1">""</button>
+                        <button type="button" class="btn btn-warning btn-lg btn-block" id="answer2">""</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" id="answer3">""</button>
+                        <button type="button" class="btn btn-danger btn-lg btn-block" id="answer4">""</button>
+                    </p>
+                    <a href="#" class="btn btn-block" id="checkAnswer">Check Your Answer</a>
+                    <a href="#" class="btn btn-block" id="nextQuestion">Next Question</a>
+                    <a href="#" class="btn btn-block" id="seeResults">See Results</a>
                 </div>
-                <p class="card-text">Answers:
-                    <br>
-                    <span id="answerText"></span>
-                    <button type="button" class="btn btn-info btn-lg btn-block" id="answer1">""</button>
-                    <button type="button" class="btn btn-warning btn-lg btn-block" id="answer2">""</button>
-                    <button type="button" class="btn btn-primary btn-lg btn-block" id="answer3">""</button>
-                    <button type="button" class="btn btn-danger btn-lg btn-block" id="answer4">""</button>
-                </p>
-                <a href="#" class="btn btn-block" id="checkAnswer">Check Your Answer</a>
-                <a href="#" class="btn btn-block" id="nextQuestion">Next Question</a>
-                <a href="#" class="btn btn-block" id="seeResults">See Results</a>
+                <hr>
             </div>
-            <hr>
         </div>
-    </div>
+        </div>
 </body>
 
 </html>
