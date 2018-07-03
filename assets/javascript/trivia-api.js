@@ -17,7 +17,6 @@ function listUsers() {
         newPlayer.append(`${user.name}'s score: ${user.score}`);
         $("#playerNames").append(newPlayer);
         sessionStorage.setItem("user" + p, user.name);
-        sessionStorage.setItem("user" + o, user.score);
     })
 }
 
