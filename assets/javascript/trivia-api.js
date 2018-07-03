@@ -1,7 +1,6 @@
 let userOneScore = 0;
 let userNames = [];
-let possibleAnswers = [];
-let correctAnswers = [];
+let currentAnswerArray = [];
 let wrongAnswers = [];
 let i = 0;
 let chosenAnswer = "";
@@ -38,6 +37,20 @@ function shuffle(array) {
     return array;
 }
 
+
+/*
+function questionDisplay() {
+    shuffle(currentAnswerArray);
+    $("#questionText").html(array[i].question);
+    console.log(array[i].question);
+    $("#answer1").html(currentAnswerArray[0]);
+    $("#answer2").html(currentAnswerArray[1]);
+    $("#answer3").html(currentAnswerArray[2]);
+    $("#answer4").html(currentAnswerArray[3]);
+
+    }
+*/
+
 $(document).ready(function () {
 
     // function to add the player names to an array for all users and display the names onto the HTML
@@ -52,7 +65,7 @@ $(document).ready(function () {
     })
 
     // function to get 5 trivia questions based on difficulty
-    $(document).on("click", ".btn-primary", function () {
+    $(document).on("click", ".btn-success", function () {
         event.preventDefault();
         let difficulty = $(this).attr("difficulty")
         let amount = $(this).attr("amount")
@@ -63,60 +76,96 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET",
         }).then(function (response) {
-                console.log(response)
-                let array = response.results;
-                let answerArray = [];
-                let correctAnswerArray = [];
-                let chosenAnswerArray = [];
-                let currentAnswerArray = [];
+            console.log(response)
+            console.log(response.results[i].question);
+            let array = response.results;
+            let answerArray = [];
+            let correctAnswerArray = [];
+            let chosenAnswerArray = [];
+            let currentAnswerArray = [];
 
-                // pushes the answers into different arrays (answerArray for all avaliable answers, correct/incorrect answer arrays to compare
-                // if the chosen answer is right or wrong)
-                array.forEach(answer => {
-                    answerArray.push(answer.correct_answer);
-                    correctAnswerArray.push(answer.correct_answer);
-                    answer.incorrect_answers.forEach(incorrect => {
-                        answerArray.push(incorrect);
-                    })
+            function questionDisplay() {
+
+                // displays the current question/current answers and lists users
+                $("#questionText").html(array[i].question);
+                $("#answerText").html(answerButtons);
+                $("#playerNames").empty();
+                listUsers()
+            }
+
+            // pushes the answers into different arrays (answerArray for all avaliable answers, correct/incorrect answer arrays to compare
+            // if the chosen answer is right or wrong)
+            array.forEach(answer => {
+                answerArray.push(answer.correct_answer);
+                correctAnswerArray.push(answer.correct_answer);
+                answer.incorrect_answers.forEach(incorrect => {
+                    answerArray.push(incorrect);
                 })
+            })
 
-                // pushes all the possible answers for the current question into an array
-                currentAnswerArray.push(array[0].correct_answer);
-                currentAnswerArray.push(array[0].incorrect_answers[0]);
-                currentAnswerArray.push(array[0].incorrect_answers[1]);
-                currentAnswerArray.push(array[0].incorrect_answers[2]);
-                shuffle(currentAnswerArray);
+            currentAnswerArray.push(array[i].correct_answer);
+            currentAnswerArray.push(array[i].incorrect_answers[0]);
+            currentAnswerArray.push(array[i].incorrect_answers[1]);
+            currentAnswerArray.push(array[i].incorrect_answers[2]);
+            shuffle(currentAnswerArray);
 
-                // creates new buttons and fills them with the text of the possible answers for the question
+            console.log(answerArray);
+            console.log(correctAnswerArray);
+            console.log(currentAnswerArray);
+        
+
+            currentAnswerArray.forEach(answers => {
+                let answerButtons = $("<button>");
+                answerButtons.addClass("btn btn-info btn-lg btn-block")
+                answerButtons.attr("type", "button");
+                answerButtons.attr("id", answers);
+                answerButtons.html(answers);
+                $("#answerText").append(answerButtons);
+            })
+
+            $("#nextQuestion").click(function (event) {
+                event.preventDefault();
+                $("#questionText").empty();
+                $("#answerText").empty();
+                i++;
+                console.log(currentAnswerArray);
+                currentAnswerArray.push(array[i].correct_answer);
+                currentAnswerArray.push(array[i].incorrect_answers[0]);
+                currentAnswerArray.push(array[i].incorrect_answers[1]);
+                currentAnswerArray.push(array[i].incorrect_answers[2]);
+                console.log(currentAnswerArray);
                 currentAnswerArray.forEach(answers => {
                     let answerButtons = $("<button>");
-                    answerButtons.addClass("btn btn-secondary")
+                    answerButtons.addClass("btn btn-info btn-lg btn-block")
                     answerButtons.attr("type", "button");
                     answerButtons.attr("id", answers);
-                    answerButtons.text(answers);
-                    $(".btn-group").append(answerButtons);
+                    answerButtons.html(answers);
+                    $("#answerText").append(answerButtons);
                 })
+                $("#questionText").append(array[i].question);
+            })
+
+
+            questionDisplay();
+            console.log(answerArray);
+            console.log(correctAnswerArray);
+            console.log(array[i].question)
                 
 
-                console.log(answerArray);
-                console.log(correctAnswerArray);
-                console.log(currentAnswerArray);
+                
 
-                
-                questionDisplay();
-                
-                
-                
-                function questionDisplay() {
+           
 
-                    // displays the current question/current answers and lists users
-                    $("#questionText").text(array[i].question);
-                    $("#answerText").text(currentAnswerArray);
-                    $("#playerNames").empty();
-                    listUsers()
+        })
+                
+                
+                
+                
 
+                if (i > 5) {
+                    i = 0;
                 }
-
+                    /*
                     // function to fire when you click next question 
                     $("#nextQuestion").click(function(event){
                     event.preventDefault();
@@ -135,14 +184,16 @@ $(document).ready(function () {
                     currentAnswerArray.push(array[i].incorrect_answers[2]);
                     shuffle(currentAnswerArray);
                     console.log(currentAnswerArray);
+
                     currentAnswerArray.forEach(answers => {
                         let answerButtons = $("<button>");
-                        answerButtons.addClass("btn btn-secondary")
+                        answerButtons.addClass("btn btn-info btn-lg btn-block")
                         answerButtons.attr("type", "button");
-                        answerButtons.text(answers);
-                        $(".btn-group").append(answerButtons);
+                        answerButtons.attr("id", answers);
+                        answerButtons.html(answers);
+                        $("#answerText").append(answerButtons);
                     })
-
+                    */
                     // this should be reseting i to 0 after pressing next question a 5th time (ends the round)
                     
 
@@ -170,17 +221,11 @@ $(document).ready(function () {
                     console.log(userNames);
                     questionDisplay();
                     
-
-                    
-
                     }) // end of click function
-
-                    // this will set the chosenAnswer to be equal to the id of the answers
-                    $(".btn-secondary").click(function() {
-                        chosenAnswer = $(this).attr("id");
-                        console.log(chosenAnswer);
-                    })
-        }) // end of then loop
-    }) // end of click function
-}) // end of document
+            // }) // end of for loop
+                }) // end of display function
+                $(".btn-secondary").click(function() {
+                    chosenAnswer = $(this).attr("id");
+                    console.log(chosenAnswer);
+})
 
