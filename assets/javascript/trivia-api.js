@@ -146,21 +146,25 @@ $(document).ready(function () {
             })
 
 
-            questionDisplay();
-            console.log(answerArray);
-            console.log(correctAnswerArray);
-            console.log(array[i].question)
-                
-
-                
-
-           
-
+            }) // end of click function
+            // }) // end of for loop
+        }) // end of then function
+    }) // end of ajax
+    $("#seeResults").click(function (event) {
+        event.preventDefault();
+        userNames.forEach(user => {
+            let newPlayer = $("<p>");
+            newPlayer.attr("id", $("#nameSet").val());
+            newPlayer.append(`${user.name}'s score: ${user.score}`);
+            $("#playerNames").append(newPlayer);
         })
-                
-                
-                
-                
+
+        console.log();
+
+ 
+
+    })
+
 
                 if (i > 5) {
                     i = 0;
@@ -221,9 +225,6 @@ $(document).ready(function () {
                     console.log(userNames);
                     questionDisplay();
                     
-                    }) // end of click function
-            // }) // end of for loop
-                }) // end of display function
                 $(".btn-secondary").click(function() {
                     chosenAnswer = $(this).attr("id");
                     console.log(chosenAnswer);
