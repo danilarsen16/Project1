@@ -18,34 +18,30 @@
 </head>
 
 <body>
-    <div class="form-group">
-        <form>
-            <label for="exampleInputEmail1" id="searchText">Enter your name!</label>
-            <!--<input type="email" class="form-control" id="searched" aria-describedby="emailHelp" placeholder="Captain America">-->
-            <input type="text" class="form-control" id="nameSet" placeholder="Your Name">
-            <button class="name" type="submit" id="nameEnter">Enter Name!</button>
-        </form>
-    </div>
-    <div>
-        <button class="btn btn-success" id="easyButton" amount="amount=5" difficulty="difficulty=easy">Level - Easy</button>
+    <div class="page-header">
+        <h1 id="currentUserName"></h1>
+        <h1 id"currentUserScore"></h1>
+        <h1 id="progressBar"></h1>
     </div>
 
-    <div>
-        <button class="btn btn-success" id="mediumButton" amount="amount=5" difficulty="difficulty=medium">Level - Medium</button>
-    </div>
 
-    <div>
-        <button class="btn btn-success" id="hardButton" amount="amount=5" difficulty="difficulty=hard">Level - Hard</button>
+
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-success" id="easyButton" amount="amount=5" difficulty="difficulty=easy">Level - Easy</button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-success" id="mediumButton" amount="amount=5" difficulty="difficulty=medium">Level - Medium</button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-success" id="hardButton" amount="amount=5" difficulty="difficulty=hard">Level - Hard</button>
+        </div>
     </div>
 
 
     <div>
         <div class="row">
-            <div class="col-md-6">
-                <h1>Players:
-                    <span id="playerNames"></span>
-                </h1>
-            </div>
+            <a href="#" class="btn btn-block" id="nextPlayer">Next Player</a>
             <div class="col-md-12">
                 <div class="card" id="question-card " style="width: 18rem;">
                     <div class="card-body" id="answer-body">
@@ -59,7 +55,9 @@
                     <span id="answerText"></span>
 
                 </p>
+                <a href="#" class="btn btn-block" id="checkAnswer">Check Your Answer</a>
                 <a href="#" class="btn btn-block" id="nextQuestion">Next Question</a>
+                <a href="" class="btn btn-block" id="seeResult">See Your Results</a>
 
             </div>
             <hr>
