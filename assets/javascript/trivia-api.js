@@ -1,7 +1,7 @@
 let userOneScore = 0;
 let currentAnswerArray = [];
 let wrongAnswers = [];
-let i = 0;
+let i = 0;card-text
 let j = 0;
 let p = 0;
 let o = 0;
@@ -16,7 +16,9 @@ function listUsers() {
         newPlayer.attr("id", $("#nameSet").val());
         newPlayer.append(`${user.name}'s score: ${user.score}`);
         $("#playerNames").append(newPlayer);
-        sessionStorage.setItem("user" + p, user.name);
+        // sessionStorage.setItem("user" + p, user.name);
+        let sessionUser = JSON.parse(sessionStorage.getItem("user"));
+        console.log(sessionUser);
     })
 }
 
@@ -46,13 +48,14 @@ $(document).ready(function () {
     $("#nameEnter").click(function (event) {
         event.preventDefault();
         let newUser = { name: "", score: 0 }
-        let addedName = $("#nameSet").val();
+        let addedName = $("#nameSet").val().trim();
         newUser.name = addedName;
         userNames.push(newUser);
+        sessionStorage.setItem("user", JSON.stringify(userNames));
         console.log(userNames);
         p++;
         o++;
-        listUsers();
+        listUsers();answer
     })
 
     $("#currentUserName").text(userNames[j]);
@@ -75,6 +78,8 @@ $(document).ready(function () {
             let amount = $(this).attr("amount")
             let queryURL = "https://opentdb.com/api.php?" + amount + "&" + difficulty + "&type=multiple";
             document.getElementById("currentUserName").innerHTML = sessionStorage.getItem("name");
+            console.log(JSON.parse(sessionStorage.getItem("user")));
+            //store this in a variable so then can be working with an array that can be parsed out and looped through.
             $("#checkAnswer").show();
             $("#nextQuestion").show();
 
