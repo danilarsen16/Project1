@@ -118,9 +118,29 @@ $(document).ready(function () {
                     answerButtons.html(answers);
                     $("#answerText").append(answerButtons);
                 })
+                $("#questionText").append(array[i].question);
+            })
 
-                $("#questionText").html(array[i].question);
-                listUsers()
+
+            }) // end of click function
+            // }) // end of for loop
+        }) // end of then function
+    }) // end of ajax
+    $("#seeResults").click(function (event) {
+        event.preventDefault();
+        userNames.forEach(user => {
+            let newPlayer = $("<p>");
+            newPlayer.attr("id", $("#nameSet").val());
+            newPlayer.append(`${user.name}'s score: ${user.score}`);
+            $("#playerNames").append(newPlayer);
+        })
+
+        console.log();
+
+ 
+
+    })
+
 
                 $("#nextQuestion").click(function (event) {
                     event.preventDefault();
@@ -164,18 +184,13 @@ $(document).ready(function () {
                         break;
                         }
                     }
-                    if (i == 4) {
-                        $("#nextQuestion").hide();
-                    }
-                    listUsers();
-                    $("#checkAnswer").hide();
-                })
-            })
-
-
-            }) // end of click function
-        } 
-    }) // end of display function
-
-
+                    
+                    console.log(userNames[j].score);
+                    console.log(userNames);
+                    questionDisplay();
+                    
+                $(".btn-secondary").click(function() {
+                    chosenAnswer = $(this).attr("id");
+                    console.log(chosenAnswer);
+})
 
