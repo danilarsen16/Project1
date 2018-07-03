@@ -56,6 +56,8 @@ $(document).ready(function () {
     });
     window.markers = window.markers || [];
     const marker = new google.maps.Marker({ map, position });
+
+
   }
 
   function hideMap() {
@@ -115,45 +117,21 @@ $(document).ready(function () {
         }
         nearbyBarArray.push(barObject);
       })
+
       nearbyBarArray.forEach(bar => {
         const { lat, lng, barName, formatted_address, rating } = bar;
         const position = { lat, lng };
         const title = barName;
         const marker = new google.maps.Marker({ map, position, title });
-        
-        var directionsService = new google.maps.DirectionsService();
-        var directionsDisplay = new google.maps.DirectionsRenderer();
-        directionsDisplay.set("directions", null)
-        directionsDisplay.setMap(map);
 
 
-        function calcRoute(directionsService, directionsDisplay, pointA, pointB) {
-          console.log("calculate route: ", arguments)
-          var start = pointA;
-          var end = pointB;
-          var request = {
-            "origin": start,
-            "destination": end,
-            travelMode: google.maps.TravelMode.DRIVING
-          };
-          directionsService.route(request, function (result, status) {
-            console.log("Got a response from DS", status, result)
-
-            if (status === 'OK') {
-              directionsDisplay.setDirections(result);
-            }
-          })
-        }
-
-        $("document").on('click', "#getDirections", calcRoute(directionsService, directionsDisplay,
-          new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(lat, lng)));
-
+        // directionsDisplay.set("directions", null)
 
         google.maps.event.addListener(marker, 'click', function () {
           var contentString = '<div id="content">' + '<div id="siteNotice">' + '</div>'
             + '<h1 id="firstHeading" class="firstHeading">' + title + '</h1>' +
             '<div id="bodyContent">' + '<p>' + title + "'s nearest address is " + formatted_address + "</p>" +
-            '<p>' + title + "'s rating is : " + rating + '</p>' + '</div><button id="getDirections>Get Directions!</button>"</div>';
+            '<p>' + title + "'s rating is : " + rating + '</p>' + '</div><button id="getDirections" data-lat="' + lat + '"' + 'data-lng="' + lng + '">Get Directions!</button></div>';
 
           var infowindow = new google.maps.InfoWindow({
             'content': contentString
@@ -165,8 +143,50 @@ $(document).ready(function () {
         window.markers.push(marker);
 
       })
+
+
+      var directionsDisplay = new google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(map);
+      var directionsService = new google.maps.DirectionsService();
+
+      $(document).on('click', "#getDirections", function(event){
+        event.preventDefault;
+        let currentLat = $(this).attr("data-lat");
+        let currentLng = $(this).attr("data-lng");
+        console.log(currentLat, currentLng);
+        
+        calcRoute(directionsService, directionsDisplay,
+          new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(currentLat, currentLng))
+      });
+
+      function calcRoute(directionsService, directionsDisplay, pointA, pointB) {
+        console.log("calculate route: ", arguments)
+        var start = pointA;
+        var end = pointB;
+        var request = {
+          "origin": start,
+          "destination": end,
+          travelMode: google.maps.TravelMode.DRIVING
+        };
+
+        directionsService.route(request, function (result, status) {
+          console.log("Got a response from DS", status, result)
+
+          if (status === 'OK') {
+
+            directionsDisplay.setDirections(result);
+          }
+        })
+      }
+
+
     })
   }
+
+  // Removes the markers from the map, but keeps them in the array. //https://developers.google.com/maps/documentation/javascript/examples/marker-remove
+  //function clearMarkers() {
+  //setMapOnAll(null);
+
 
   // directionsService.route(request, function (response, status) {
   //   if (status == google.maps.DirectionsStatus.OK) {
@@ -200,7 +220,7 @@ $(document).ready(function () {
     const $watchButton = document.getElementById('watch-button');
     const $clearWatchButton = document.getElementById('clear-watch-button');
     const $showNearbyButton = document.getElementById('show-nearby-button');
-    /// create button for directions
+
     $geolocateButton.disabled = false;
     $watchButton.disabled = false;
     $clearWatchButton.disabled = false;
@@ -213,7 +233,7 @@ $(document).ready(function () {
   const $watchButton = document.getElementById('watch-button');
   const $clearWatchButton = document.getElementById('clear-watch-button');
   const $showNearbyButton = document.getElementById('show-nearby-button');
-  ///create button for directions
+
   $geolocateButton.addEventListener('click', geolocate);
   $watchButton.addEventListener('click', watchLocation);
   $clearWatchButton.addEventListener('click', clearWatch);
