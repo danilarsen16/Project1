@@ -1,18 +1,22 @@
 let userOneScore = 0;
-let userNames = [];
-let possibleAnswers = [];
-let correctAnswers = [];
+let currentAnswerArray = [];
 let wrongAnswers = [];
 let i = 0;
+let j = 0;
+let p = 0;
+let o = 0;
+let chosenAnswer = "";
+let userNames = [];
 
 // function to add new users name/score
 function listUsers() {
-$("#playerNames").empty();
+    $("#playerNames").empty();
     userNames.forEach(user => {
-        
         let newPlayer = $("<p>");
+        newPlayer.attr("id", $("#nameSet").val());
         newPlayer.append(`${user.name}'s score: ${user.score}`);
         $("#playerNames").append(newPlayer);
+        sessionStorage.setItem("user" + p, user.name);
     })
 }
 
@@ -37,31 +41,49 @@ function shuffle(array) {
 }
 
 $(document).ready(function () {
-
+    console.log(userNames);
     // function to add the player names to an array for all users and display the names onto the HTML
     $("#nameEnter").click(function (event) {
         event.preventDefault();
         let newUser = { name: "", score: 0 }
         let addedName = $("#nameSet").val();
-        $("#nameSet").val("");
         newUser.name = addedName;
         userNames.push(newUser);
         console.log(userNames);
+        p++;
+        o++;
         listUsers();
     })
 
-    // function to get 5 trivia questions based on difficulty
-    $(document).on("click", ".btn", function () {
-        event.preventDefault();
-        let difficulty = $(this).attr("difficulty")
-        let amount = $(this).attr("amount")
-        let queryURL = "https://opentdb.com/api.php?" + amount + "&" + difficulty + "&type=multiple";
+    $("#currentUserName").text(userNames[j]);
 
-        $.ajax({
-            url: queryURL,
-            method: "GET",
-        }).then(function (response) {
+    startRound();
+
+    $("#nextPlayer").click(function (event) {
+        event.preventDefault();
+        $("#answerText").empty();
+        $("#questionText").empty();
+        i = 0;
+        j++;
+    })
+
+    function startRound() {
+        // function to get 5 trivia questions based on difficulty
+        $(document).on("click", ".btn-success", function () {
+            event.preventDefault();
+            let difficulty = $(this).attr("difficulty")
+            let amount = $(this).attr("amount")
+            let queryURL = "https://opentdb.com/api.php?" + amount + "&" + difficulty + "&type=multiple";
+            document.getElementById("currentUserName").innerHTML = sessionStorage.getItem("name");
+            $("#checkAnswer").show();
+            $("#nextQuestion").show();
+
+            $.ajax({
+                url: queryURL,
+                method: "GET",
+            }).then(function (response) {
                 console.log(response)
+                console.log(response.results[i].question);
                 let array = response.results;
                 let answerArray = [];
                 let correctAnswerArray = [];
@@ -82,53 +104,90 @@ $(document).ready(function () {
                 currentAnswerArray.push(array[i].incorrect_answers[0]);
                 currentAnswerArray.push(array[i].incorrect_answers[1]);
                 currentAnswerArray.push(array[i].incorrect_answers[2]);
+                shuffle(currentAnswerArray);
 
                 console.log(answerArray);
                 console.log(correctAnswerArray);
                 console.log(currentAnswerArray);
 
-                
-                questionDisplay();
-                
-                
-                
-                function questionDisplay() {
+                currentAnswerArray.forEach(answers => {
+                    let answerButtons = $("<button>");
+                    answerButtons.addClass("btn btn-info btn-lg btn-block")
+                    answerButtons.attr("type", "button");
+                    answerButtons.attr("id", answers);
+                    answerButtons.html(answers);
+                    $("#answerText").append(answerButtons);
+                })
+                $("#questionText").append(array[i].question);
+            })
+        }) // end of click function
+        // }) // end of for loop
+    }
+    $("#seeResults").click(function (event) {
+        event.preventDefault();
+        userNames.forEach(user => {
+            let newPlayer = $("<p>");
+            newPlayer.attr("id", $("#nameSet").val());
+            newPlayer.append(`${user.name}'s score: ${user.score}`);
+            $("#playerNames").append(newPlayer);
+        })
 
-                    $("#questionText").text(array[i].question);
-                    $("#answerText").text(currentAnswerArray);
-
-                }
-
-                    $("#nextQuestion").click(function(event){
-                    event.preventDefault();
-                    $("#questionText").empty();
-                    $("#answerText").empty();
-                    i++;
-                    currentAnswerArray = []
-                    console.log(currentAnswerArray);
-                    currentAnswerArray.push(array[i].correct_answer);
-                    currentAnswerArray.push(array[i].incorrect_answers[0]);
-                    currentAnswerArray.push(array[i].incorrect_answers[1]);
-                    currentAnswerArray.push(array[i].incorrect_answers[2]);
-                    console.log(currentAnswerArray);
-                    questionDisplay();
-                    console.log(i);
-
-                    if (i > 5) {
-                        i = 0;
-                    }
-
-                    }) // end of click function
-                // }) // end of for loop
-            }) // end of then function
-            
-    }) // end of ajax
-
-});
+        console.log();
 
 
-//for questions we can; 
-// create an array of all possible answers
-// add the correct answers to an array, add the wrong answers to an array
-// create buttons for each answer and randomize
-// create a submit button that checks your answers at the end and totals your points and displays it to the HTML
+
+    })
+
+
+    $("#nextQuestion").click(function (event) {
+        event.preventDefault();
+        $("#questionText").html("");
+        $("#answerText").empty();
+        i++;
+        currentAnswerArray = [];
+        console.log(currentAnswerArray);
+        console.log(i);
+        currentAnswerArray.push(array[i].correct_answer);
+        currentAnswerArray.push(array[i].incorrect_answers[0]);
+        currentAnswerArray.push(array[i].incorrect_answers[1]);
+        currentAnswerArray.push(array[i].incorrect_answers[2]);
+        console.log(currentAnswerArray);
+        shuffle(currentAnswerArray);
+        currentAnswerArray.forEach(answers => {
+            let answerButtons = $("<button>");
+            answerButtons.addClass("btn btn-info btn-lg btn-block")
+            answerButtons.attr("type", "button");
+            answerButtons.attr("id", answers);
+            answerButtons.html(answers);
+            $("#answerText").append(answerButtons);
+        })
+
+        $("#checkAnswer").show();
+        $("#questionText").html(array[i].question);
+    })
+
+    $(document).on("click", ".btn-info", function () {
+        chosenAnswer = $(this).attr("id");
+        console.log(this);
+        console.log(chosenAnswer);
+    })
+
+    $("#checkAnswer").click(function () {
+        var found = false;
+        for (var k = 0; k < correctAnswerArray.length; k++) {
+            if (chosenAnswer == correctAnswerArray[k]) {
+                found = true;
+                userNames[j].score++
+                break;
+            }
+        }
+
+        console.log(userNames[j].score);
+        console.log(userNames);
+        questionDisplay();
+    })
+    $(".btn-secondary").click(function () {
+        chosenAnswer = $(this).attr("id");
+        console.log(chosenAnswer);
+    })
+})
