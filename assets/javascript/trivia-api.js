@@ -8,6 +8,14 @@ let chosenAnswer = "";
 // function to add new users name/score
 function listUsers() {
     $("#playerNames").empty();
+<<<<<<< HEAD
+    userNames.forEach(user => {
+
+        let newPlayer = $("<p>");
+        newPlayer.append(`${user.name}'s score: ${user.score}`);
+        $("#playerNames").append(newPlayer);
+    })
+=======
         userNames.forEach(user => {
             
             let newPlayer = $("<p>");
@@ -15,6 +23,7 @@ function listUsers() {
             newPlayer.append(`${user.name}'s score: ${user.score}`);
             $("#playerNames").append(newPlayer);
         })
+>>>>>>> 1a71d9275de3bdc62b8dd6ab689b84489ad48907
 }
 
 // shuffle function
@@ -146,21 +155,25 @@ $(document).ready(function () {
             })
 
 
-            questionDisplay();
-            console.log(answerArray);
-            console.log(correctAnswerArray);
-            console.log(array[i].question)
-                
-
-                
-
-           
-
+            }) // end of click function
+            // }) // end of for loop
+        }) // end of then function
+    }) // end of ajax
+    $("#seeResults").click(function (event) {
+        event.preventDefault();
+        userNames.forEach(user => {
+            let newPlayer = $("<p>");
+            newPlayer.attr("id", $("#nameSet").val());
+            newPlayer.append(`${user.name}'s score: ${user.score}`);
+            $("#playerNames").append(newPlayer);
         })
-                
-                
-                
-                
+
+        console.log();
+
+ 
+
+    })
+
 
                 if (i > 5) {
                     i = 0;
@@ -221,9 +234,6 @@ $(document).ready(function () {
                     console.log(userNames);
                     questionDisplay();
                     
-                    }) // end of click function
-            // }) // end of for loop
-                }) // end of display function
                 $(".btn-secondary").click(function() {
                     chosenAnswer = $(this).attr("id");
                     console.log(chosenAnswer);
