@@ -16,7 +16,7 @@ function listUsers() {
         newPlayer.attr("id", $("#nameSet").val());
         newPlayer.append(`${user.name}'s score: ${user.score}`);
         $("#playerNames").append(newPlayer);
-        sessionStorage.setItem("user" + p, user.name);
+        sessionStorage.setItem("user" + p, JSON.stringify(user));
     })
 }
 
@@ -42,7 +42,6 @@ function shuffle(array) {
 
 $(document).ready(function () {
     console.log(userNames);
-    // function to add the player names to an array for all users and display the names onto the HTML
     $("#nameEnter").click(function (event) {
         event.preventDefault();
         let newUser = { name: "", score: 0 }
@@ -54,8 +53,7 @@ $(document).ready(function () {
         o++;
         listUsers();
     })
-
-    $("#currentUserName").text(userNames[j]);
+    // function to add the player names to an array for all users and display the names onto the HTML
 
     startRound();
 
@@ -74,7 +72,8 @@ $(document).ready(function () {
             let difficulty = $(this).attr("difficulty")
             let amount = $(this).attr("amount")
             let queryURL = "https://opentdb.com/api.php?" + amount + "&" + difficulty + "&type=multiple";
-            document.getElementById("currentUserName").innerHTML = sessionStorage.getItem("name");
+            p=1;
+            document.getElementById("currentUserName").innerHTML = sessionStorage.getItem("user" + p, JSON.stringify(value));
             $("#checkAnswer").show();
             $("#nextQuestion").show();
 
@@ -124,7 +123,7 @@ $(document).ready(function () {
 
             }) // end of click function
             // }) // end of for loop
-        }) // end of then function
+        } // end of then function
     }) // end of ajax
     $("#seeResults").click(function (event) {
         event.preventDefault();
@@ -192,5 +191,6 @@ $(document).ready(function () {
                 $(".btn-secondary").click(function() {
                     chosenAnswer = $(this).attr("id");
                     console.log(chosenAnswer);
+                })
 })
 
