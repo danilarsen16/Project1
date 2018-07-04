@@ -51,7 +51,7 @@ $(document).ready(function () {
         let addedName = $("#nameSet").val().trim();
         newUser.name = addedName;
         userNames.push(newUser);
-        sessionStorage.setItem("user", JSON.stringify(userNames));
+        sessionStorage.setItem("user", JSON.stringify({name: addedName, score: 0}));
         console.log(userNames);
         p++;
         o++;
