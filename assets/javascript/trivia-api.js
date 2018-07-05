@@ -1,7 +1,7 @@
 let userOneScore = 0;
 let currentAnswerArray = [];
 let wrongAnswers = [];
-let i = 0;
+let i = 0;card-text
 let j = 0;
 let p = 0;
 let o = 0;
@@ -17,7 +17,11 @@ function listUsers() {
         newPlayer.append(`${user.name}'s score: ${user.score}`);
         $("#playerNames").append(newPlayer);
         // sessionStorage.setItem("user" + p, user.name);
+<<<<<<< HEAD
         let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
+=======
+        let sessionUser = JSON.parse(sessionStorage.getItem("user"));
+>>>>>>> 6672058f30d927199b5526b516c5cec9828de0ef
         console.log(sessionUser);
     })
 }
@@ -68,7 +72,7 @@ $(document).ready(function () {
         console.log(userNames);
         p++;
         o++;
-        listUsers();
+        listUsers();answer
     })
     // function to add the player names to an array for all users and display the names onto the HTML
 
