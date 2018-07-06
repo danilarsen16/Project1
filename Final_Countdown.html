@@ -8,8 +8,38 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet">
     <script src="assets/javascript/trivia-api.js"></script>
+    <link rel="stylesheet" href="assets/css/trivia.css">
+
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="index.html">Home</a>
+            <a href="Geolocatorwithplaces.html">Beer Me</a>
+            <a href="user-signup.html">Trivia</a>
+        </div>
+    </div>
+
+    <div id="ourMenu" class="menu">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">
+            <img id="ourMenu" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh0En1L8eZFBHy0LQK08U2E59lH9FcFusdwGRtfBg6dfdsdudK"
+                style="width:20%">
+        </span>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+
 
     <style>
         ul.square {
@@ -21,15 +51,19 @@
 <body>
 
     <div class="jumbotron text-center">
-        <h1>The Final Countdown</h1>
-        <p>Who will buy the next round of beers? Don't think of it as losing... think of it as helping your friends be less
-            thirsty!
+        <h1>
+            <b id="finalCountdown">The Final Countdown</b>
+        </h1>
+        <p>Who's buying the next round?
+            <br> Click below to find out!
         </p>
+        <br>
+        <br> Don't think of it as losing... think of it as helping your friends be less thirsty!
     </div>
-    <a href="#" class="btn btn-block" id="seeResults">See Results</a>
-
-    <div id = "playerNames"</div>
-
+    <div id="losingText">
+        <div class="col-md-6 text-center">
+            <button class="btn btn-secondary" id="seeResults">Drum roll...</button>
+        </div>
 </body>
 
 </html>

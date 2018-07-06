@@ -6,23 +6,56 @@
     <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
     <!-- <meta charset="utf-8" /> -->
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-    <title>Runner</title>
+    <title>Trivia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="trivia.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-        crossorigin="anonymous">
-    <script src="trivia-api.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="assets/javascript/trivia-api.js"></script>
+    <link rel="stylesheet" href="assets/css/trivia.css">
 </head>
 
 <body>
+
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="index.html">Home</a>
+            <a href="Geolocatorwithplaces.html">Beer Me</a>
+            <a href="user-signup.html">Trivia</a>
+        </div>
+    </div>
+
+    <div id="ourMenu" class="menu">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">
+            <img id="ourMenu" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh0En1L8eZFBHy0LQK08U2E59lH9FcFusdwGRtfBg6dfdsdudK"
+                style="width:20%">
+        </span>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+
+<!-- 
     <div class="page-header">
         <h1 id="currentUserName"></h1>
         <h1 id "currentUserScore"></h1>
-        <h1 id="progressBar"></h1>
+        <h1 id="progressBar"></h1> -->
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <div class="row">
+                <p class="card-text" id="currentUserName"></p>
+                <p class="card-test" id="currentUserScore"></p>
+            </div>
+        </div>
     </div>
 
 
@@ -39,34 +72,29 @@
         </div>
     </div>
 
-    <div class="container">
-        <div>
-            <div class="row">
-                <a href="#" class="btn btn-block" id="nextPlayer">Next Player</a>
-                <div class="col-md-12">
-                    <div class="card" id="question-card " style="width: 18rem;">
-                        <div class="card-body" id="answer-body">
-                            <h5 class="card-title">Question:
-                                <span id="questionText"></span>
-                            </h5>
-                        </div>
+
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" id="question-card " style="width: 18rem;">
+                    <div class="card-body" id="answer-body">
+                        <h5 class="card-title">Question:
+                            <span id="questionText"></span>
+                        </h5>
                     </div>
-                    <p class="card-text">Answers:
-                        <br>
-                        <span id="answerText"></span>
-                        <button type="button" class="btn btn-info btn-lg btn-block" id="answer1">""</button>
-                        <button type="button" class="btn btn-warning btn-lg btn-block" id="answer2">""</button>
-                        <button type="button" class="btn btn-primary btn-lg btn-block" id="answer3">""</button>
-                        <button type="button" class="btn btn-danger btn-lg btn-block" id="answer4">""</button>
-                    </p>
-                    <a href="#" class="btn btn-block" id="checkAnswer">Check Your Answer</a>
-                    <a href="#" class="btn btn-block" id="nextQuestion">Next Question</a>
-                    <a href="#" class="btn btn-block" id="seeResults">See Results</a>
                 </div>
-                <hr>
+                <p class="card-text">Answers:
+                    <br>
+                    <span id="answerText"></span>
+                </p>
+                <a href="#" class="btn btn-block" id="checkAnswer">Check Your Answer</a>
+                <a href="#" class="btn btn-block" id="nextQuestion">Next Question</a>
+                <a href="#" class="btn btn-block" id="nextPlayer">Next Player</a>
+                <a href="Final_Countdown.html" class="btn btn-block">See Results</a>
             </div>
+            <hr>
         </div>
-        </div>
+    </div>
 </body>
 
 </html>
