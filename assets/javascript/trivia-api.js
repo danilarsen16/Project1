@@ -1,7 +1,7 @@
 let userOneScore = 0;
 let currentAnswerArray = [];
 let wrongAnswers = [];
-let i = 0;card-text
+let i = 0;
 let j = 0;
 let p = 0;
 let o = 0;
@@ -69,7 +69,7 @@ $(document).ready(function () {
         console.log(userNames);
         p++;
         o++;
-        listUsers();answer
+        listUsers();
     })
     // function to add the player names to an array for all users and display the names onto the HTML
 
