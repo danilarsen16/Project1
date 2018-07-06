@@ -168,114 +168,97 @@ $(document).ready(function () {
                     $("#answerText").append(answerButtons);
                 })
                 $("#questionText").append(array[i].question);
-            })
-            $("#seeResults").click(function (event) {
-                event.preventDefault();
-                userNames.forEach(user => {
-                    let newPlayer = $("<p>");
-                    newPlayer.attr("id", $("#nameSet").val());
-                    newPlayer.append(`${user.name}'s score: ${user.score}`);
-                    $("#playerNames").append(newPlayer);
 
 
-                    var losingPlayer = getLowestScore();
 
-                    $("#losingPlayer").html(`<h2>The losing player is ${losingPlayer.name}! Get out your wallet, it's time to buy everyone else some alcohol!`);
+
+                // end of click function
+                // }) // end of for loop
+                // end of then function
+                // end of ajax
+
+
+                $(document).off('click', '#nextQuestion').on('click', '#nextQuestion', function (event) {
+                    event.preventDefault();
+                    $("#questionText").html("");
+                    $("#answerText").empty();
+                    i++;
+                    currentAnswerArray = [];
+                    console.log(currentAnswerArray);
+                    console.log(i);
+                    currentAnswerArray.push(array[i].correct_answer);
+                    currentAnswerArray.push(array[i].incorrect_answers[0]);
+                    currentAnswerArray.push(array[i].incorrect_answers[1]);
+                    currentAnswerArray.push(array[i].incorrect_answers[2]);
+                    console.log(currentAnswerArray);
+                    shuffle(currentAnswerArray);
+                    currentAnswerArray.forEach(answers => {
+                        let answerButtons = $("<button>");
+                        answerButtons.addClass("btn btn-info btn-lg btn-block")
+                        answerButtons.attr("type", "button");
+                        answerButtons.attr("id", answers);
+                        answerButtons.html(answers);
+                        $("#answerText").append(answerButtons);
+                    })
+
+                    $("#checkAnswer").show();
+                    $("#nextQuestion").hide();
+                    $("#questionText").html(array[i].question);
                 })
 
-                console.log();
-
-
-                function getLowestScore() {
-                    var lowestPlayer = userNames.reduce((lastLowest, current) => {
-                        if (current.score < lastLowest.score) return current;
-                        else return lastLowest;
-                    }, { score: 50 });
-
-                }
-            })
-
-
-            $(document).off('click', '#nextQuestion').on('click', '#nextQuestion', function (event) {
-                event.preventDefault();
-                $("#questionText").html("");
-                $("#answerText").empty();
-                i++;
-                currentAnswerArray = [];
-                console.log(currentAnswerArray);
-                console.log(i);
-                currentAnswerArray.push(array[i].correct_answer);
-                currentAnswerArray.push(array[i].incorrect_answers[0]);
-                currentAnswerArray.push(array[i].incorrect_answers[1]);
-                currentAnswerArray.push(array[i].incorrect_answers[2]);
-                console.log(currentAnswerArray);
-                shuffle(currentAnswerArray);
-                currentAnswerArray.forEach(answers => {
-                    let answerButtons = $("<button>");
-                    answerButtons.addClass("btn btn-info btn-lg btn-block")
-                    answerButtons.attr("type", "button");
-                    answerButtons.attr("id", answers);
-                    answerButtons.html(answers);
-                    $("#answerText").append(answerButtons);
+                $(document).on("click", ".btn-info", function () {
+                    chosenAnswer = $(this).attr("id");
+                    console.log(this);
+                    console.log(chosenAnswer);
                 })
 
-                $("#checkAnswer").show();
-                $("#nextQuestion").hide();
-                $("#questionText").html(array[i].question);
-            })
-
-            $(document).on("click", ".btn-info", function () {
-                chosenAnswer = $(this).attr("id");
-                console.log(this);
-                console.log(chosenAnswer);
-            })
-
-            $("#checkAnswer").click(function () {
-                var found = false;
-                for (var k = 0; k < correctAnswerArray.length; k++) {
-                    if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "easy") {
-                        found = true;
-                        let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
-                        sessionUser.score++;
-                        console.log(sessionUser.score);
-                        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
-                        sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score }));
-                        break;
+                $("#checkAnswer").click(function () {
+                    var found = false;
+                    for (var k = 0; k < correctAnswerArray.length; k++) {
+                        if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "easy") {
+                            found = true;
+                            let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
+                            sessionUser.score++;
+                            console.log(sessionUser.score);
+                            document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
+                            sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score }));
+                            break;
+                        }
+                        if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "medium") {
+                            found = true;
+                            let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
+                            sessionUser.score++;
+                            sessionUser.score++;
+                            console.log(sessionUser.score);
+                            document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
+                            sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score }));
+                            break;
+                        }
+                        if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "hard") {
+                            found = true;
+                            let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
+                            sessionUser.score++;
+                            sessionUser.score++;
+                            sessionUser.score++;
+                            console.log(sessionUser.score);
+                            document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
+                            sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score }));
+                            break;
+                        }
                     }
-                    if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "medium") {
-                        found = true;
-                        let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
-                        sessionUser.score++;
-                        sessionUser.score++;
-                        console.log(sessionUser.score);
-                        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
-                        sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score }));
-                        break;
-                    }
-                    if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "hard") {
-                        found = true;
-                        let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
-                        sessionUser.score++;
-                        sessionUser.score++;
-                        sessionUser.score++;
-                        console.log(sessionUser.score);
-                        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
-                        sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score }));
-                        break;
-                    }
-                }
-                $("#checkAnswer").hide();
-                $("#nextQuestion").show();
-            })
+                    $("#checkAnswer").hide();
+                    $("#nextQuestion").show();
+                })
 
-            $(".btn-secondary").click(function () {
-                chosenAnswer = $(this).attr("id");
-                console.log(chosenAnswer);
-            })
+                $(".btn-secondary").click(function () {
+                    chosenAnswer = $(this).attr("id");
+                    console.log(chosenAnswer);
+                })
 
+
+            })
 
         })
-
     }
 
 })
