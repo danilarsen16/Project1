@@ -7,6 +7,7 @@ let p = 0;
 let o = 0;
 let chosenAnswer = "";
 let userNames = [];
+let players = [];
 
 // function to add new users name/score
 function listUsers() {
@@ -53,11 +54,10 @@ function questionDisplay() {
 
 $(document).ready(function () {
 
-    console.log(userNames);
     $("#nextQuestion").hide();
     // function to add the player names to an array for all users and display the names onto the HTML
-    $("#startGame").click(function (event){
-        p=0;
+    $("#startGame").click(function (event) {
+        p = 0;
     })
     $("#nameEnter").click(function (event) {
         event.preventDefault();
@@ -84,103 +84,79 @@ $(document).ready(function () {
         let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
         document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
     })
-        function startRound() {
-            // function to get 5 trivia questions based on difficulty
-            $(".btn-success").click(function () {
-                event.preventDefault();
-                let difficulty = $(this).attr("difficulty")
-                let amount = $(this).attr("amount")
-                let queryURL = "https://opentdb.com/api.php?" + amount + "&" + difficulty + "&type=multiple";
-                i=0;
-                let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
-                document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
-                // document.getElementById("currentUserScore").innerHTML = (" Score: " + sessionUser.score);   
-                //store this in a variable so then can be working with an array that can be parsed out and looped through.
-                console.log(p);
-                $("#answerText").empty();
-                $("#checkAnswer").show();
+
+    $("#seeResults").on("click", function () {
+        event.preventDefault();
+        console.log("is it even reading this?")
+        console.log(window.sessionStorage.length);
+        for (k = 0; k < window.sessionStorage.length; k++) {
+            let sessionUser = JSON.parse(window.sessionStorage.getItem("user" + k));
+            players.push(sessionUser);
+        }
+        var lowestPlayer = players[0];
+
+        for (let m = 0; m < players.length; m++) {
+            if (players[m].score < lowestPlayer.score) {
+                lowestPlayer = players[m];
+            }
+        }
+        console.log(players);
+
+        let losingPlayer = $("<p>");
+        losingPlayer.append(`<h1>The player responsible for buying the next round is ${lowestPlayer.name}!!</h1>`)
+
+        $("#losingText").html(losingPlayer);
+    })
+
+    function startRound() {
+        // function to get 5 trivia questions based on difficulty
+        $(".btn-success").click(function () {
+            event.preventDefault();
+            let difficulty = $(this).attr("difficulty")
+            let amount = $(this).attr("amount")
+            let queryURL = "https://opentdb.com/api.php?" + amount + "&" + difficulty + "&type=multiple";
+            i = 0;
+            let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
+            document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
+            // document.getElementById("currentUserScore").innerHTML = (" Score: " + sessionUser.score);   
+            //store this in a variable so then can be working with an array that can be parsed out and looped through.
+            console.log(p);
+            $("#answerText").empty();
+            $("#checkAnswer").show();
 
 
 
-                $.ajax({
-                    url: queryURL,
-                    method: "GET",
-                }).then(function (response) {
-                    console.log(response)
-                    console.log(response.results[i].question);
-                    let array = response.results;
-                    let answerArray = [];
-                    let correctAnswerArray = [];
-                    let chosenAnswerArray = [];
-                    let currentAnswerArray = [];
-
-                    // pushes the answers into different arrays (answerArray for all avaliable answers, correct/incorrect answer arrays to compare
-                    // if the chosen answer is right or wrong)
-                    array.forEach(answer => {
-                        answerArray.push(answer.correct_answer);
-                        correctAnswerArray.push(answer.correct_answer);
-                        answer.incorrect_answers.forEach(incorrect => {
-                            answerArray.push(incorrect);
-                        })
-                    })
-
-                    currentAnswerArray.push(array[i].correct_answer);
-                    currentAnswerArray.push(array[i].incorrect_answers[0]);
-                    currentAnswerArray.push(array[i].incorrect_answers[1]);
-                    currentAnswerArray.push(array[i].incorrect_answers[2]);
-                    shuffle(currentAnswerArray);
-
-                    console.log(answerArray);
-                    console.log(correctAnswerArray);
-                    console.log(currentAnswerArray);
-
-                    currentAnswerArray.forEach(answers => {
-                        let answerButtons = $("<button>");
-                        answerButtons.addClass("btn btn-info btn-lg btn-block")
-                        answerButtons.attr("type", "button");
-                        answerButtons.attr("id", answers);
-                        answerButtons.html(answers);
-                        $("#answerText").append(answerButtons);
-                    })
-                    $("#questionText").append(array[i].question);
-                    
+            $.ajax({
+                url: queryURL,
+                method: "GET",
+            }).then(function (response) {
                 
+                let array = response.results;
+                let answerArray = [];
+                let correctAnswerArray = [];
+                let chosenAnswerArray = [];
+                let currentAnswerArray = [];
 
-
-                // end of click function
-                // }) // end of for loop
-             // end of then function
-            // end of ajax
-            $("#seeResults").click(function (event) {
-                event.preventDefault();
-                userNames.forEach(user => {
-                    let newPlayer = $("<p>");
-                    newPlayer.attr("id", $("#nameSet").val());
-                    newPlayer.append(`${user.name}'s score: ${user.score}`);
-                    $("#playerNames").append(newPlayer);
+                // pushes the answers into different arrays (answerArray for all avaliable answers, correct/incorrect answer arrays to compare
+                // if the chosen answer is right or wrong)
+                array.forEach(answer => {
+                    answerArray.push(answer.correct_answer);
+                    correctAnswerArray.push(answer.correct_answer);
+                    answer.incorrect_answers.forEach(incorrect => {
+                        answerArray.push(incorrect);
+                    })
                 })
 
-                console.log();
-
-
-
-            })
-
-
-            $(document).off('click', '#nextQuestion').on('click', '#nextQuestion', function(event){
-                event.preventDefault();
-                $("#questionText").html("");
-                $("#answerText").empty();
-                i ++;
-                currentAnswerArray = [];
-                console.log(currentAnswerArray);
-                console.log(i);
                 currentAnswerArray.push(array[i].correct_answer);
                 currentAnswerArray.push(array[i].incorrect_answers[0]);
                 currentAnswerArray.push(array[i].incorrect_answers[1]);
                 currentAnswerArray.push(array[i].incorrect_answers[2]);
-                console.log(currentAnswerArray);
                 shuffle(currentAnswerArray);
+
+                console.log(answerArray);
+                console.log(correctAnswerArray);
+                console.log(currentAnswerArray);
+
                 currentAnswerArray.forEach(answers => {
                     let answerButtons = $("<button>");
                     answerButtons.addClass("btn btn-info btn-lg btn-block")
@@ -189,74 +165,107 @@ $(document).ready(function () {
                     answerButtons.html(answers);
                     $("#answerText").append(answerButtons);
                 })
+                $("#questionText").append(array[i].question);
 
-                $("#checkAnswer").show();
-                $("#nextQuestion").hide();
-                $("#questionText").html(array[i].question);
-            })
 
-            $(document).on("click", ".btn-info", function () {
-                chosenAnswer = $(this).attr("id");
-                console.log(this);
-                console.log(chosenAnswer);
-            })
 
-            $("#checkAnswer").click(function () {
-                var found = false;
-                for (var k = 0; k < correctAnswerArray.length; k++) {
-                    if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "easy") {
-                        found = true;
-                        let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
-                        sessionUser.score++;
-                        console.log(sessionUser.score);
-                        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
-                        sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score}));
-                        break;
+
+                // end of click function
+                // }) // end of for loop
+                // end of then function
+                // end of ajax
+
+
+                $(document).off('click', '#nextQuestion').on('click', '#nextQuestion', function (event) {
+                    event.preventDefault();
+                    $("#questionText").html("");
+                    $("#answerText").empty();
+                    i++;
+                    currentAnswerArray = [];
+                    console.log(currentAnswerArray);
+                    console.log(i);
+                    currentAnswerArray.push(array[i].correct_answer);
+                    currentAnswerArray.push(array[i].incorrect_answers[0]);
+                    currentAnswerArray.push(array[i].incorrect_answers[1]);
+                    currentAnswerArray.push(array[i].incorrect_answers[2]);
+                    console.log(currentAnswerArray);
+                    shuffle(currentAnswerArray);
+                    currentAnswerArray.forEach(answers => {
+                        let answerButtons = $("<button>");
+                        answerButtons.addClass("btn btn-info btn-lg btn-block")
+                        answerButtons.attr("type", "button");
+                        answerButtons.attr("id", answers);
+                        answerButtons.html(answers);
+                        $("#answerText").append(answerButtons);
+                    })
+
+                    $("#checkAnswer").show();
+                    $("#nextQuestion").hide();
+                    $("#questionText").html(array[i].question);
+                })
+
+                $(document).on("click", ".btn-info", function () {
+                    chosenAnswer = $(this).attr("id");
+                    console.log(this);
+                    console.log(chosenAnswer);
+                })
+
+                $("#checkAnswer").click(function () {
+                    var found = false;
+                    for (var k = 0; k < correctAnswerArray.length; k++) {
+                        if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "easy") {
+                            found = true;
+                            let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
+                            sessionUser.score++;
+                            console.log(sessionUser.score);
+                            document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
+                            sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score }));
+                            break;
+                        }
+                        if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "medium") {
+                            found = true;
+                            let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
+                            sessionUser.score++;
+                            sessionUser.score++;
+                            console.log(sessionUser.score);
+                            document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
+                            sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score }));
+                            break;
+                        }
+                        if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "hard") {
+                            found = true;
+                            let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
+                            sessionUser.score++;
+                            sessionUser.score++;
+                            sessionUser.score++;
+                            console.log(sessionUser.score);
+                            document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
+                            sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score }));
+                            break;
+                        }
                     }
-                    if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "medium") {
-                        found = true;
-                        let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
-                        sessionUser.score++;
-                        sessionUser.score++;
-                        console.log(sessionUser.score);
-                        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
-                        sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score}));
-                        break;
-                    }
-                    if (chosenAnswer == correctAnswerArray[k] && response.results[i].difficulty == "hard") {
-                        found = true;
-                        let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
-                        sessionUser.score++;
-                        sessionUser.score++;
-                        sessionUser.score++;
-                        console.log(sessionUser.score);
-                        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
-                        sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score}));
-                        break;
-                    }
-                }
-                $("#checkAnswer").hide();
-                $("#nextQuestion").show();
-            })
+                    $("#checkAnswer").hide();
+                    $("#nextQuestion").show();
+                })
 
-            $(".btn-secondary").click(function () {
-                chosenAnswer = $(this).attr("id");
-                console.log(chosenAnswer);
+                $(".btn-secondary").click(function () {
+                    chosenAnswer = $(this).attr("id");
+                    console.log(chosenAnswer);
+                })
+
+
             })
-        
 
         })
-    
-    })
-}
+    }
 
 })
 function findLowestPlayer() {
-var lowestPlayer = players.reduce ( 
-    (lastLowest, current) => {
-        if (current.score < lastLowest.score) return current;
-        else return lastLowest;
-    }, {score:1000}) 
-    
+    var lowestPlayer = players.reduce(
+        (lastLowest, current) => {
+            if (current.score < lastLowest.score) return current;
+            else return lastLowest;
+        }, { score: 1000 })
+
     console.log(lowestPlayer)
 }
