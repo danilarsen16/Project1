@@ -149,12 +149,12 @@ $(document).ready(function () {
       directionsDisplay.setMap(map);
       var directionsService = new google.maps.DirectionsService();
 
-      $(document).on('click', "#getDirections", function(event){
+      $(document).on('click', "#getDirections", function (event) {
         event.preventDefault;
         let currentLat = $(this).attr("data-lat");
         let currentLng = $(this).attr("data-lng");
         console.log(currentLat, currentLng);
-        
+
         calcRoute(directionsService, directionsDisplay,
           new google.maps.LatLng(latitude, longitude), new google.maps.LatLng(currentLat, currentLng))
       });

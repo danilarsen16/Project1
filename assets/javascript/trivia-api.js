@@ -61,6 +61,7 @@ $(document).ready(function () {
     })
     $("#nameEnter").click(function (event) {
         event.preventDefault();
+
         let newUser = { name: "", score: 0 }
         let addedName = $("#nameSet").val().trim();
         newUser.name = addedName;
@@ -70,6 +71,7 @@ $(document).ready(function () {
         p++;
         o++;
         listUsers();
+        $("#nameSet").val("");
     })
     // function to add the player names to an array for all users and display the names onto the HTML
 
@@ -130,7 +132,7 @@ $(document).ready(function () {
                 url: queryURL,
                 method: "GET",
             }).then(function (response) {
-                
+
                 let array = response.results;
                 let answerArray = [];
                 let correctAnswerArray = [];
