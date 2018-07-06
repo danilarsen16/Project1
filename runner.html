@@ -2,88 +2,101 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Runner</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+    <!-- <meta charset="utf-8" /> -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <title>Trivia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="trivia-api.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <script src="assets/javascript/trivia-api.js"></script>
+    <link rel="stylesheet" href="assets/css/trivia.css">
 </head>
 
 <body>
 
-        <div class="container">
-                <div class="container">
-                    <div class="row">
-                      <div class="col">
-                        Name 
-                      </div>
-                      <div class="col">
-                        Level
-                      </div>
-                      <div class="col">
-                        <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-          </div>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-          
-    
-    <div class="form-group">
-        <form>
-            <label for="exampleInputEmail1" id="searchText">Enter your name!</label>
-            <!--<input type="email" class="form-control" id="searched" aria-describedby="emailHelp" placeholder="Captain America">-->
-            <input type="text" class="form-control" id="nameSet" placeholder="Your Name">
-            <button class="name" type="submit" id="nameEnter">Enter Name!</button>
-        </form>
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="index.html">Home</a>
+            <a href="Geolocatorwithplaces.html">Beer Me</a>
+            <a href="user-signup.html">Trivia</a>
+        </div>
     </div>
+
+    <div id="ourMenu" class="menu">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">
+            <img id="ourMenu" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh0En1L8eZFBHy0LQK08U2E59lH9FcFusdwGRtfBg6dfdsdudK"
+                style="width:20%">
+        </span>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+
+    <!-- 
+    <div class="page-header">
+        <h1 id="currentUserName"></h1>
+        <h1 id "currentUserScore"></h1>
+        <h1 id="progressBar"></h1> -->
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <div class="row">
+                <p class="card-text" id="currentUserName"></p>
+                <p class="card-test" id="currentUserScore"></p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-success" id="easyButton" amount="amount=5" difficulty="difficulty=easy">Level - Easy</button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-success" id="mediumButton" amount="amount=5" difficulty="difficulty=medium">Level - Medium</button>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-success" id="hardButton" amount="amount=5" difficulty="difficulty=hard">Level - Hard</button>
+        </div>
+    </div>
+
 
     <div>
         <div class="row">
-            <div class="col-md-6">
-                <h1>Players:
-                    <span id="playerNames"></span>
-                </h1>
+            <div class="col-md-12">
+                <div class="card" id="question-card " style="width: 30rem;">
+                    <div class="card-body" id="answer-body">
+                        <h5 class="card-title">Question:
+                            <span id="questionText"></span>
+                        </h5>
+                    </div>
+                </div>
+                <p class="card-text">Answers:
+                    <br>
+                    <span id="answerText"></span>
+                </p>
+                <a href="#" class="btn btn-block" id="checkAnswer">Check Your Answer</a>
+                <a href="#" class="btn btn-block" id="nextQuestion">Next Question</a>
+                <a href="#" class="btn btn-block" id="nextPlayer">Next Player</a>
+                <a href="Final_Countdown.html" class="btn btn-block">See Results</a>
             </div>
             <hr>
         </div>
-        <div class="col-md-6">
-            <div class="card" id="question-card " style="width: 18rem;">
-                <div class="card-body" id="answer-body">
-                    <h5 class="card-title">Question: <span id="questionText"></span></h5>
-          
-
-                    <p class="card-text">Answers: <br><span id="answerText"></span></p>
-                    <button type="button" class="btn btn-info btn-lg btn-block">""</button>
-                    <button type="button" class="btn btn-warning btn-lg btn-block">""</button>
-                    <button type="button" class="btn btn-primary btn-lg btn-block">""</button>
-                    <button type="button" class="btn btn-danger btn-lg btn-block">""</button>
-
-                    <a href="#" class="btn btn-primary" id="nextQuestion">Next Question</a>
-                </div>
-            </div>
-        </div>
     </div>
-
-    <div>
-        <button class="btn btn-primary" id="easyButton" amount="amount=5" difficulty="difficulty=easy">Easy Search</button>
-    </div>
-
-    <div>
-        <button class="btn btn-primary" id="mediumButton" amount="amount=5" difficulty="difficulty=medium">Medium Search</button>
-    </div>
-
-    <div>
-        <button class="btn btn-primary" id="hardButton" amount="amount=5" difficulty="difficulty=hard">Hard Search</button>
-    </div>
-
 </body>
 
 </html>

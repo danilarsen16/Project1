@@ -13,49 +13,56 @@
   <meta name="viewport" content="width=device-width, 
   initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
+
 <body>
 
-  <div class="containerPics">
-    <div class="row">
-      <div class="col-sm">
-        <img src=https://www.prostly.com/wp-content/uploads/2016/09/Edinburgh-Fringe-Fest-Beer-3-uai-1032x769.jpg style="width:350px;height:250px;">
-      </div>
-      <div class="col-sm">
-        <img src=http://www.805beer.com/images/805_keg.jpg style="width:350px;height:250px;">
-      </div>
-      <div class="col-sm">
-        <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTyA-LEH2O5f7hUdXoS_PCJDx8RnYRNwhjAqNpNc8uab0sw3OdDQ style="width:350px;height:250px;">
-      </div>
-      <div class="col-sm">
-        <img src=https://www.coinaphoto.com/cap/thumbs3/3591429/15088/i/380/depositphotos_150885692-stock-photo-people-cheers-with-beer.jpg style="width:350px;height:250px;">
-      </div>
-
-    </div>
-  </div>
-
-
+  <!-- Navbar full page start-->
   <div id="myNav" class="overlay">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <div class="overlay-content">
-      <a href="#">Home</a>
-      <a href="#">Beer Me</a>
-      <a href="#">Trivia</a>
+      <a href="index.html">Home</a>
+      <a href="Geolocatorwithplaces.html">Beer Me</a>
+      <a href="user-signup.html">Trivia</a>
     </div>
   </div>
-  
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()"><img src="http://www.wyntonsworld.com/wp-content/uploads/2012/08/menu.png" id="OurMenu" style="width:10%"></span>
-  
+
+  <div id="ourMenu" class="menu">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">
+      <img id="ourMenu" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh0En1L8eZFBHy0LQK08U2E59lH9FcFusdwGRtfBg6dfdsdudK"
+        style="width:20%">
+    </span>
+  </div>
+
   <script>
-  function openNav() {
+    function openNav() {
       document.getElementById("myNav").style.width = "100%";
-  }
-  
-  function closeNav() {
+    }
+
+    function closeNav() {
       document.getElementById("myNav").style.width = "0%";
-  }
+    }
   </script>
-     
-     
+  <!-- Navbar full page end-->
+
+  <div class="containerPics">
+    <div class="row">
+      <div class="col-md-3">
+        <img src=https://www.prostly.com/wp-content/uploads/2016/09/Edinburgh-Fringe-Fest-Beer-3-uai-1032x769.jpg style="width:350px;height:250px;">
+      </div>
+      <div class="col-sm-3">
+        <img src=http://www.805beer.com/images/805_keg.jpg style="width:350px;height:250px;">
+      </div>
+      <div class="col-sm-3">
+        <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTyA-LEH2O5f7hUdXoS_PCJDx8RnYRNwhjAqNpNc8uab0sw3OdDQ style="width:350px;height:250px;">
+      </div>
+      <div class="col-sm-3">
+        <img src=https://www.coinaphoto.com/cap/thumbs3/3591429/15088/i/380/depositphotos_150885692-stock-photo-people-cheers-with-beer.jpg
+          style="width:350px;height:250px;">
+      </div>
+    </div>
+  </div>
+
+
   <div id="main-container" class="container">
     <section class="main-section">
       <h1 class=welcome>Welcome to Trivia Brew!</h1>
@@ -80,7 +87,7 @@
             <p class="beerMe"> Beer Me</p>
         </div>
         <div class="column">
-          <a href="Trivia.html">
+          <a href="user-signup.html">
             <img src="https://image.flaticon.com/icons/svg/547/547008.svg" alt="Trivia" style="width:40%">
             <p class="trivia"> Trivia</p>
         </div>

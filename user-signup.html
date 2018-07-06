@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Player Signup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/trivia.css" />
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="assets/javascript/trivia-api.js"></script>
+</head>
+
+<body>
+    <section>
+        <!-- navbar start -->
+
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+                <a href="index.html">Home</a>
+                <a href="Geolocatorwithplaces.html">Beer Me</a>
+                <a href="user-signup.html">Trivia</a>
+            </div>
+
+            <div id="ourMenu" class="menu">
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()">
+                    <img id="ourMenu" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh0En1L8eZFBHy0LQK08U2E59lH9FcFusdwGRtfBg6dfdsdudK"
+                        style="width:20%">
+                </span>
+            </div>
+        </div>
+        <script>
+            function openNav() {
+                document.getElementById("myNav").style.width = "100%";
+            }
+
+            function closeNav() {
+                document.getElementById("myNav").style.width = "0%";
+            }
+        </script>
+        <!-- navbar end -->
+
+        <div class="container">
+            <div class="form-group">
+                <form>
+                    <label for="exampleInputEmail1" id="searchText">
+                        <p id=enterYourName>Enter your name!</p>
+                    </label>
+                    <!--<input type="email" class="form-control" id="searched" aria-describedby="emailHelp" placeholder="Captain America">-->
+                    <input type="text" class="form-control" id="nameSet" placeholder="Your Name">
+                    <button class="name" type="submit" id="nameEnter">Enter Name</button>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Players:
+                        <span id="playerNames"></span>
+                    </h1>
+                </div>
+            </div>
+
+
+            <a href="runner.html" type="button" class="btn btn-light" id="startGame">Start Game</a>
+
+    </section>
+    </div>
+    </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
