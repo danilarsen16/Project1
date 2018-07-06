@@ -28,6 +28,30 @@ body {
     font-size: 60px;
 }
 
+#seeResults {
+margin-left: auto;
+margin-right: auto;
+}
+
+.jumbotron {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-90%);
+  opacity: 0.7;
+}
+
+#finalCountdown {
+  font-family: Galada, cursive;
+}
+
+#losingText {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, 150%);
+}
+
 
 
 /*navbar start*/
