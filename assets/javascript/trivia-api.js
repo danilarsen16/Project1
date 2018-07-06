@@ -82,8 +82,7 @@ $(document).ready(function () {
         i = 0;
         p++;
         let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
-        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + " ");
-        document.getElementById("currentUserScore").innerHTML = ("Score: " + sessionUser.score);
+        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
     })
         function startRound() {
             // function to get 5 trivia questions based on difficulty
@@ -94,8 +93,8 @@ $(document).ready(function () {
                 let queryURL = "https://opentdb.com/api.php?" + amount + "&" + difficulty + "&type=multiple";
                 i=0;
                 let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
-                document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + " ");
-                document.getElementById("currentUserScore").innerHTML = ("Score: " + sessionUser.score);
+                document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
+                // document.getElementById("currentUserScore").innerHTML = (" Score: " + sessionUser.score);   
                 //store this in a variable so then can be working with an array that can be parsed out and looped through.
                 console.log(p);
                 $("#answerText").empty();
@@ -210,7 +209,7 @@ $(document).ready(function () {
                         let sessionUser = JSON.parse(sessionStorage.getItem("user" + p));
                         sessionUser.score++;
                         console.log(sessionUser.score);
-                        document.getElementById("currentUserScore").innerHTML = ("Score: " + sessionUser.score);
+                        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
                         sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score}));
                         break;
                     }
@@ -220,7 +219,7 @@ $(document).ready(function () {
                         sessionUser.score++;
                         sessionUser.score++;
                         console.log(sessionUser.score);
-                        document.getElementById("currentUserScore").innerHTML = ("Score: " + sessionUser.score);
+                        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
                         sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score}));
                         break;
                     }
@@ -231,7 +230,7 @@ $(document).ready(function () {
                         sessionUser.score++;
                         sessionUser.score++;
                         console.log(sessionUser.score);
-                        document.getElementById("currentUserScore").innerHTML = ("Score: " + sessionUser.score);
+                        document.getElementById("currentUserName").innerHTML = ("Name: " + sessionUser.name + "<br>Score: " + sessionUser.score);
                         sessionStorage.setItem("user" + p, JSON.stringify({ name: sessionUser.name, score: sessionUser.score}));
                         break;
                     }
@@ -252,5 +251,12 @@ $(document).ready(function () {
 }
 
 })
-
-
+function findLowestPlayer() {
+var lowestPlayer = players.reduce ( 
+    (lastLowest, current) => {
+        if (current.score < lastLowest.score) return current;
+        else return lastLowest;
+    }, {score:1000}) 
+    
+    console.log(lowestPlayer)
+}
