@@ -29,7 +29,7 @@ Each player can choose a difficulty level for their questions and recieve points
 The lowest scoring player each round is selected to buy the next round of drinks for everyone! <br>
 <hr>
 
-![countdown](https://user-images.githubusercontent.com/38441292/44433744-38eeea00-a56d-11e8-8063-a888a80890f2.JPG)
+![countdown](https://user-images.githubusercontent.com/38441292/44433819-82d7d000-a56d-11e8-9e80-224a6509c9b5.JPG)
 
 
 ### Enjoy playing the game and cheers to trivia!
