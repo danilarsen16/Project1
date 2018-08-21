@@ -2,10 +2,16 @@
 This application was the first project for the UMN Coding Bootcamp. The application combines a geolocator using the Google Maps/Places API's to find a nearby bar or brewery and a trivia API to start a trivia game once your arrive! 
 <hr>
 
+![triviabrewhome](https://user-images.githubusercontent.com/38441292/44433500-2cb65d00-a56c-11e8-8c12-477c296837f0.JPG)
+
+
 ## Geolocator
 
 The geolocator will fire after pressing the "find my location" button and accepting the prompt. Then you can press the "where am I drinkin'" button to find nearby places to meet your friends!
 <hr>
+
+![geolocator](https://user-images.githubusercontent.com/38441292/44433685-09d87880-a56d-11e8-96ba-78bb7c9527d8.JPG)
+
 
 ## Trivia
 
@@ -16,9 +22,15 @@ Each player can choose a difficulty level for their questions and recieve points
 <li>Medium questions = 2 points
 <li>Hard Questions = 3 points
 <br>
+  
+![triviaqs](https://user-images.githubusercontent.com/38441292/44433735-2ecceb80-a56d-11e8-9f1e-79d7861e0a37.JPG)
+
 <br>
 The lowest scoring player each round is selected to buy the next round of drinks for everyone! <br>
 <hr>
+
+![countdown](https://user-images.githubusercontent.com/38441292/44433744-38eeea00-a56d-11e8-8063-a888a80890f2.JPG)
+
 
 ### Enjoy playing the game and cheers to trivia!
 
